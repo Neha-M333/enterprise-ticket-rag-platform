@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-08-27T21:47:56.713313+00:00",
+  "mock_mode": false,
+  "summary": {
+    "total_tests": 10,
+    "passed": 10,
+    "failed": 0,
+    "skipped_quota": 0,
+    "average_quality_score_excl_skipped": 1.0
+  },
+  "results": [
+    {
+      "test_id": "T1-1",
+      "task": "Task1",
+      "name": "Valid Classification",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "ticket_id=TKT-10000 priority=Low category=Feature Request",
+      "error": null
+    },
+    {
+      "test_id": "T1-2",
+      "task": "Task1",
+      "name": "KB Retrieval Relevance",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "retrieved_kb_ids=['analyticshub.md', 'authentication-sso.md']",
+      "error": null
+    },
+    {
+      "test_id": "T1-3",
+      "task": "Task1",
+      "name": "Draft Response Non-Empty",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "draft_response_length=339",
+      "error": null
+    },
+    {
+      "test_id": "T1-4",
+      "task": "Task1",
+      "name": "Deterministic Schema Round-Trip",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "Round-tripped JSON matches the original TicketTriageResponse.",
+      "error": null
+    },
+    {
+      "test_id": "T1-5",
+      "task": "Task1",
+      "name": "Adversarial Ambiguous Ticket",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "No exception raised. priority=Low category=Technical response_len=465",
+      "error": null
+    },
+    {
+      "test_id": "T2-1",
+      "task": "Task2",
+      "name": "90-Day Window Math",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "included_ticket_ids=['S-1', 'S-2'] (expected only S-1, S-2)",
+      "error": null
+    },
+    {
+      "test_id": "T2-2",
+      "task": "Task2",
+      "name": "Metric Accuracy vs Manual Filter",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "stats={'total': 3, 'critical_high': 2, 'open_count': 2, 'priority_counts': {'P1': 1, 'P3': 1, 'P2': 1}, 'status_counts': {'Open': 2, 'Resolved': 1}}",
+      "error": null
+    },
+    {
+      "test_id": "T2-3",
+      "task": "Task2",
+      "name": "Health Status Enum Validity",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "account_id=ACC-7397 health_status=At-Risk",
+      "error": null
+    },
+    {
+      "test_id": "T2-4",
+      "task": "Task2",
+      "name": "Executive Summary Quality",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "executive_summary='Gavin Belson Co is designated At-Risk ahead of its July 30, 2026 renewal date due to recent escalation flags regarding negative sentiment and a 19-day lapse since last user login. Although the 90-day ticket volume is minimal with zero currently open issues, the proximity to renewal combined with low login recency demands immediate CSM engagement.'",
+      "error": null
+    },
+    {
+      "test_id": "T2-5",
+      "task": "Task2",
+      "name": "Adversarial Unknown Account",
+      "status": "PASS",
+      "quality_score": 1.0,
+      "details": "No exception raised for unknown account. total_tickets_90d=0 health_status=Healthy account_name_fallback=ACC-DOES-NOT-EXIST-9999",
+      "error": null
+    }
+  ]
+}
