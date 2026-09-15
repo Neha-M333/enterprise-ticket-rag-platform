@@ -1,27 +1,26 @@
 # Enterprise Ticket RAG Platform
 
-An AI-assisted support workflow built for the Zycus AI Engineer — Product
-Support Intern technical assessment. It covers two production-shaped
-tasks — ticket triage with retrieval-augmented context, and 90-day account
-health scoring — plus an automated evaluation harness that grades both
-against real (not hand-waved) test cases.
+An AI-assisted support workflow simulating two production-shaped tasks common
+to enterprise SaaS support teams: ticket triage with retrieval-augmented
+context, and 90-day account health scoring, plus an automated evaluation
+harness that grades both against real (not hand-waved) test cases.
 
 ## Overview
 
 - **Task 1 — Ticket Triage & RAG** (`src/task1_triage.py`): retrieves the
-  most relevant knowledge-base articles for an incoming ticket (TF-IDF,
-  with a dependency-free keyword-overlap fallback), then asks
-  `gemini-3.6-flash` to classify priority/category and draft a grounded
-  customer-facing response, with the output forced into a Pydantic schema.
+most relevant knowledge-base articles for an incoming ticket (TF-IDF,
+with a dependency-free keyword-overlap fallback), then asks
+`gemini-3.6-flash` to classify priority/category and draft a grounded
+customer-facing response, with the output forced into a Pydantic schema.
 - **Task 2 — Account Health** (`src/task2_account.py`): filters a given
-  account's tickets to a rolling 90-day window, computes authoritative
-  ticket-volume/severity stats in pandas, and asks the LLM to weigh those
-  stats alongside account context (usage trend, NPS, escalation notes,
-  renewal proximity) into a health verdict and executive summary.
+account's tickets to a rolling 90-day window, computes authoritative
+ticket-volume/severity stats in pandas, and asks the LLM to weigh those
+stats alongside account context (usage trend, NPS, escalation notes,
+renewal proximity) into a health verdict and executive summary.
 - **Evaluation Harness** (`src/eval_harness.py`): 10 automated test cases
-  (5 per task, including adversarial inputs) with PASS/FAIL verdicts and
-  0.0–1.0 quality scores, runnable either as a standalone script or via
-  `pytest`.
+(5 per task, including adversarial inputs) with PASS/FAIL verdicts and
+0.0–1.0 quality scores, runnable either as a standalone script or via
+`pytest`.
 
 ## Directory Structure
 
@@ -44,7 +43,7 @@ enterprise-ticket-rag-platform/
 
 ## Setup
 
-```bash
+```
 # 1. Create and activate a virtual environment
 python -m venv .venv
 .venv\Scripts\activate        # Windows (PowerShell)
@@ -63,45 +62,44 @@ copy .env.example .env        # Windows
 
 **Task 1 — Ticket Triage** (runs triage on the first 2 tickets, prints JSON):
 
-```bash
+```
 python src/task1_triage.py
 ```
 
 **Task 2 — Account Health** (evaluates 2 sample accounts, prints JSON):
 
-```bash
+```
 python src/task2_account.py
 ```
 
-**Evaluation Harness — standalone** (console summary table + writes
-`eval_report.json` to the project root):
+**Evaluation Harness — standalone** (console summary table + writes `eval_report.json` to the project root):
 
-```bash
+```
 python src/eval_harness.py
 ```
 
 **Evaluation Harness — via pytest** (10 individually reported test cases,
 sharing a single harness run so it doesn't multiply live API calls):
 
-```bash
+```
 pytest src/eval_harness.py -v
 ```
 
 **Quota-free harness smoke test** (validates fixture loading, 90-day math,
 scoring, and reporting with zero live Gemini calls):
 
-```bash
+```
 python src/eval_harness.py --mock
 ```
 
 ## Evaluation Results (latest run)
 
-| Metric | Result |
-|---|---|
-| Total tests | 10 |
-| Passed | 10 |
-| Failed | 0 |
-| Average quality score | 1.00 |
+| Metric                | Result |
+| --------------------- | ------ |
+| Total tests           | 10     |
+| Passed                | 10     |
+| Failed                | 0      |
+| Average quality score | 1.00   |
 
 All 5 Task 1 checks (valid classification, KB retrieval relevance,
 non-empty draft response, deterministic schema round-trip, and an
@@ -114,8 +112,8 @@ actual model outputs graded — is in `eval_report.json`.
 ## Notes
 
 - `gemini-2.5-flash` is deprecated for new API keys as of this project's
-  timeline; the code targets `gemini-3.6-flash`.
+timeline; the code targets `gemini-3.6-flash`.
 - Free-tier Gemini keys are capped at 20 requests/day per model — the
-  harness caches repeated calls to the same ticket/account within a run
-  and distinguishes a quota-exhausted `SKIPPED` result from a genuine
-  `FAIL` in its report, rather than conflating the two.
+harness caches repeated calls to the same ticket/account within a run
+and distinguishes a quota-exhausted `SKIPPED` result from a genuine
+`FAIL` in its report, rather than conflating the two.
